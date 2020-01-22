@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+WORKDIR /src
+COPY ["docker-wpf-exercise-MarkusKurzmann/docker-wpf-exercise-MarkusKurzmann.csproj", "docker-wpf-exercise-MarkusKurzmann/"]
+RUN dotnet restore "docker-wpf-exercise-MarkusKurzmann/docker-wpf-exercise-MarkusKurzmann.csproj"
+COPY . .
+WORKDIR "/src/docker-wpf-exercise-MarkusKurzmann"
+RUN dotnet build "docker-wpf-exercise-MarkusKurzmann.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "docker-wpf-exercise-MarkusKurzmann.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "docker-wpf-exercise-MarkusKurzmann.dll"]
