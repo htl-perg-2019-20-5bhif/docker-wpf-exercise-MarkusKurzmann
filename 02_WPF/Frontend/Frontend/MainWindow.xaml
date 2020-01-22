@@ -1,0 +1,45 @@
+﻿<Window x:Class="Frontend.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Frontend"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center">Car-Booking Service</TextBlock>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal">
+            <DatePicker SelectedDate="{Binding Date}" FontSize="18" Margin="0,0,25,0" Height="28"/>
+            <Button Click="ShowAvail" FontSize="18" Height="28" >Show Available Cars</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Width="600">
+            <DataGrid Name="CarDataGrid" ItemsSource="{Binding Cars}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="16">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CarId" Binding="{Binding CarID}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Make" Binding="{Binding Make}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Model}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Year}"></DataGridTextColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="BookCar" Tag="{Binding CarId}">Book</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -9,7 +9,7 @@ using Backend.Model;
 
 namespace Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cars")]
     [ApiController]
     public class CarsController : ControllerBase
     {
@@ -20,10 +20,11 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
-            return await _context.Cars.ToListAsync();
+
+            return await _context.Cars.ToListAsync<Car>();
         }
 
         [HttpGet("{id}")]
