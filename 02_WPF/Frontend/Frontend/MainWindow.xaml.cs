@@ -34,14 +34,16 @@ namespace Frontend
             HttpClient.BaseAddress = new Uri("http://localhost:5000/");
             DataContext = this;
             InitializeComponent();
-
+             
             GetAllCars();
         }
 
         public async void GetAllCars()
         {
             var response = await HttpClient.GetAsync("api/cars/");
-            JsonSerializer.Deserialize<List<Car>>(await response.Content.ReadAsStringAsync()).ForEach(c => Cars.Add(c));
+            var cars = await response.Content.ReadAsStringAsync();
+
+            JsonSerializer.Deserialize<List<Car>>(cars, new JsonSerializerOptions{ PropertyNameCaseInsensitive=true}).ForEach(c => Cars.Add(c));
         }
 
 

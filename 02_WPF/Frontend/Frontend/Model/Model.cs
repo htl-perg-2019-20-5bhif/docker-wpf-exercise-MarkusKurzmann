@@ -9,16 +9,16 @@ namespace Frontend.Model
 {
     public class Car
     {
-        [JsonProperty("CarID")]
+        [JsonProperty("carID")]
         public int CarID { get; set; }
-        [JsonProperty("Make")]
+        [JsonProperty("make")]
         public String Make { get; set; }
-        [JsonProperty("Model")]
+        [JsonProperty("model")]
         public String Model { get; set; }
-        [JsonProperty("Year")]
+        [JsonProperty("year")]
         public int Year { get; set; }
 
-        [JsonProperty("Bookings")] 
+        [JsonProperty("bookings")] 
         public List<Booking> Bookings { get; set; }
     }
 
