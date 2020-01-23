@@ -52,7 +52,7 @@ namespace Frontend
             Cars.Clear();
 
             var response = await HttpClient.GetAsync("api/cars/available/" + Date.Day + "." + Date.Month + "." + Date.Year);
-            JsonSerializer.Deserialize<List<Car>>(await response.Content.ReadAsStringAsync()).ForEach(c => Cars.Add(c));
+            JsonSerializer.Deserialize<List<Car>>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true }).ForEach(c => Cars.Add(c));
         }
 
         public async void BookCarForDate(BookingDate curDate, int id)
